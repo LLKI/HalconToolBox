@@ -1,0 +1,19 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0-windows</TargetFramework>
+    <Nullable>enable</Nullable>
+    <UseWPF>true</UseWPF>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+	<ItemGroup>
+		<PackageReference Include="Prism.DryIoc" Version="8.1.97" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Reference Include="halcondotnet">
+	    <HintPath>..\..\..\tool\HALCON24\repository\HALCON-24.05-Progress\bin\dotnet35\halcondotnet.dll</HintPath>
+	  </Reference>
+	</ItemGroup>
+</Project>
