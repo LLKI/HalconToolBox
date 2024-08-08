@@ -18,11 +18,16 @@ namespace HalconToolBox.ViewModels
             NavigationService = navigationService;
             this.regionManager = regionManager;
             NavigateCommand = new DelegateCommand<NavigationItem>(Navigate);
+            GoDashboardCommand = new DelegateCommand(() =>
+            {
+                NavigatePage("DashBoardView");
+            });
             IsTopDrawerOpen = false;
         }
 
         public INavigationMenuService NavigationService { get; }
         public DelegateCommand<NavigationItem> NavigateCommand { get; set; }
+        public DelegateCommand GoDashboardCommand { get; set; }
         private bool isTopDrawerOpen;
         private readonly IRegionManager regionManager;
 
@@ -44,8 +49,13 @@ namespace HalconToolBox.ViewModels
                 IsTopDrawerOpen = true;
                 return;
             }
+            else
+            {
+                NavigatePage(obj.PageName);
+            }
             IsTopDrawerOpen = false;
         }
+
 
 
         public override void OnNavigatedTo(NavigationContext navigationContext)

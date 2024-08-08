@@ -41,8 +41,8 @@ namespace HalconToolBox.Services
                 new NavigationItem("","字符识别","",new ObservableCollection<NavigationItem>()
                 {
                     new NavigationItem("FormatColorText","字符识别",""),
-                    new NavigationItem("Barcode","一维码识别",""),
-                    new NavigationItem("Qrcode","二维码识别",""),
+                    new NavigationItem("Barcode","一维码识别","BarCodeView"),
+                    new NavigationItem("Qrcode","二维码识别","QRCodeView"),
                 }),
                 new NavigationItem("","缺陷检测","",new ObservableCollection<NavigationItem>()
                 {
@@ -50,10 +50,10 @@ namespace HalconToolBox.Services
                     new NavigationItem("CropRotate","形变模型","")
                 })
             }));
-            Items.Add(new NavigationItem("", "模板匹配", ""));
-            Items.Add(new NavigationItem("", "比较测量", ""));
-            Items.Add(new NavigationItem("", "字符识别", ""));
-            Items.Add(new NavigationItem("", "缺陷检测", ""));
+            //Items.Add(new NavigationItem("", "模板匹配", ""));
+            //Items.Add(new NavigationItem("", "比较测量", ""));
+            //Items.Add(new NavigationItem("", "字符识别", ""));
+            //Items.Add(new NavigationItem("", "缺陷检测", ""));
             Items.Add(new NavigationItem("", "学习文档", ""));
         }
     }

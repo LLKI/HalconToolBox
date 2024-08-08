@@ -14,11 +14,15 @@ using System.Threading.Tasks;
 
 namespace MachineVision.TemplateMatch.ViewModels
 {
-    public class QRCodeViewModel : NavigationViewModel
+    public class BarCodeViewModel:NavigationViewModel
     {
-        public QRCodeViewModel(QRCodeService qRCodeService)
+        /// <summary>
+        /// 一维码识别
+        /// </summary>
+        /// <param name="barCodeService"></param>
+        public BarCodeViewModel(BarCodeService barCodeService)
         {
-            QRCodeService = qRCodeService;
+            BarCodeService = barCodeService;
             DrawObjectList = new ObservableCollection<DrawingObjectInfo>();
             RunCommand = new DelegateCommand(Run);
             SetRangeCommand = new DelegateCommand(SetRange);
@@ -26,8 +30,7 @@ namespace MachineVision.TemplateMatch.ViewModels
             DrawObjectList = new ObservableCollection<DrawingObjectInfo>();
             MatchResult = new OcrMatchResult();
         }
-
-        public QRCodeService QRCodeService { get; }
+        public BarCodeService BarCodeService { get; }
 
         public DelegateCommand RunCommand { get; set; }
         public DelegateCommand SetRangeCommand { get; set; }
@@ -46,7 +49,7 @@ namespace MachineVision.TemplateMatch.ViewModels
         public OcrMatchResult MatchResult
         {
             get { return ocrMatchResult; }
-            set { ocrMatchResult = value;RaisePropertyChanged(); }
+            set { ocrMatchResult = value; RaisePropertyChanged(); }
         }
 
         private HObject image;
@@ -63,10 +66,10 @@ namespace MachineVision.TemplateMatch.ViewModels
         private void SetRange()
         {
             var hobject = DrawObjectList.FirstOrDefault();
-            DrawObjectList.Clear();
+            DrawObjectList.Clear();//清空,给后面创建模板时不拿错
             if (hobject != null)
             {
-                QRCodeService.RoiObject = new HObject(hobject.HObject);
+                BarCodeService.RoiObject = new HObject(hobject.HObject);
                 MatchResult.Message = $"{DateTime.Now}:设置ROI成功!";
             }
             else
@@ -94,7 +97,7 @@ namespace MachineVision.TemplateMatch.ViewModels
         /// </summary>
         private void Run()
         {
-            MatchResult = QRCodeService.Run(image);
+            MatchResult = BarCodeService.Run(image);
         }
     }
 }

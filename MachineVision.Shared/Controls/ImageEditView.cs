@@ -1,6 +1,6 @@
 ﻿using HalconDotNet;
 using MachineVision.Core.TemplateMatch;
-using MachineVision.Shared.Extensions;
+using MachineVision.Core.Extensions;
 using System.Collections.ObjectModel;
 using System.Windows;
 using System.Windows.Controls;

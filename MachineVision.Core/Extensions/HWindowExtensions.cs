@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MachineVision.Shared.Extensions
+namespace MachineVision.Core.Extensions
 {
     public static class HWindowExtensions
     {

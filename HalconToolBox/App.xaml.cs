@@ -12,6 +12,7 @@ using MachineVision.TemplateMatch;
 using MachineVision.Core.TemplateMatch.ShapeModel;
 using MachineVision.Core.TemplateMatch.NccModel;
 using MachineVision.Core.TemplateMatch;
+using MachineVision.Core.TemplateMatch.OCR;
 
 namespace HalconToolBox
 {
@@ -54,6 +55,9 @@ namespace HalconToolBox
 
             services.Register<ITemplateMatchService,ShapeModelService>(nameof(TemplateMatchType.ShapeModel));
             services.Register<ITemplateMatchService,NccModelService>(nameof(TemplateMatchType.NccModel));
+
+            services.Register<BarCodeService>();
+            services.Register<QRCodeService>();
         }
         protected override void ConfigureModuleCatalog(IModuleCatalog moduleCatalog)
         {
