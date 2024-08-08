@@ -6,7 +6,7 @@ using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Windows.Controls;
 
-namespace MachineVision.Core.TemplateMatch
+namespace MachineVision.Core.TemplateMatch.ShapeModel
 {
     public class ShapeModelService : BindableBase, ITemplateMatchService
     {
@@ -42,13 +42,14 @@ namespace MachineVision.Core.TemplateMatch
             };
             RunParameter = new ShapeModelRunParameter();
             TemplateParameter = new ShapeModelInputParameter();
+            Setting = new MatchResultSetting();
 
             //设置默认参数
             RunParameter.ApplyDefaultParameter();
             TemplateParameter.ApplyDefaultParameter();
         }
-
-
+        private MatchResultSetting setting;
+        public HObject RoiObject { get; set; }
         public MethodInfo info { get; set; }
         private ShapeModelInputParameter templateParameter;
         private ShapeModelRunParameter runParameter;
@@ -56,13 +57,17 @@ namespace MachineVision.Core.TemplateMatch
         HTuple hv_Row = new HTuple(), hv_Col = new HTuple();
         HTuple hv_Angle = new HTuple(), hv_Score = new HTuple();
 
+        public MatchResultSetting Setting
+        {
+            get { return setting; }
+            set { setting = value;RaisePropertyChanged(); }
+        }
 
         public ShapeModelInputParameter TemplateParameter
         {
             get { return templateParameter; }
             set { templateParameter = value; RaisePropertyChanged(); }
         }
-
 
         public ShapeModelRunParameter RunParameter
         {
@@ -94,10 +99,31 @@ namespace MachineVision.Core.TemplateMatch
             MatchResult matchResult = new MatchResult();
             matchResult.Results = new ObservableCollection<TemplateMatchResult>();
 
+            if(image == null)
+            {
+                matchResult.Message = "输入图像无效!";
+                return matchResult;
+            }
+            if(modelId == null)
+            {
+                matchResult.Message = "输入模板无效!";
+                return matchResult;
+            }
+
             var timeSpan = SetTimer(() =>
             {
+                HObject imageReduced;
+                HOperatorSet.GenEmptyObj(out imageReduced);
+                if (RoiObject != null)
+                {
+                    HOperatorSet.ReduceDomain(image, (HObject)RoiObject, out imageReduced);
+                }
+                else
+                {
+                    imageReduced = image;
+                }
                 HOperatorSet.FindShapeModel(
-                            image,
+                            imageReduced,
                             modelId,
                             RunParameter.AngleStart,
                             RunParameter.AngleExtent,
@@ -110,18 +136,28 @@ namespace MachineVision.Core.TemplateMatch
                             out hv_Row, out hv_Col, out hv_Angle, out hv_Score);
             });
 
+            //获取形状模板轮廓
+            HOperatorSet.GetShapeModelContours(out HObject modelContours, modelId, 1);
+
             for (int i = 0; i < hv_Score.Length; i++)
             {
+                //计算轮廓匹配的目标位置对象
+                HOperatorSet.VectorAngleToRigid(0, 0, 0, hv_Row.DArr[i], hv_Col.DArr[i], hv_Angle.DArr[i], out HTuple homMat2D);
+                HOperatorSet.AffineTransContourXld(modelContours,out HObject contoursAffineTrans,homMat2D);
+
                 matchResult.Results.Add(new TemplateMatchResult()
                 {
                     Index = i + 1,
                     Row = hv_Row[i],
                     Column = hv_Col[i],
                     Angle = hv_Angle.DArr[i],
-                    Score = hv_Score.DArr[i]
+                    Score = hv_Score.DArr[i],
+                    Contours = contoursAffineTrans
                 });
             }
             matchResult.TimeSpan = timeSpan;
+            matchResult.Setting = Setting;
+            matchResult.Message = $"匹配耗时:{timeSpan} ms , 匹配个数:{matchResult.Results.Count}";
             return matchResult;
         }
 
@@ -224,8 +260,8 @@ namespace MachineVision.Core.TemplateMatch
         public override void ApplyDefaultParameter()
         {
             NumLevels = "auto";
-            AngleStart = -0.39;
-            AngleExtent = 0.79;
+            AngleStart = 0;
+            AngleExtent = 360;
             AngleStep = "auto";
             Optimization = "auto";
             Metric = "use_polarity";
@@ -325,10 +361,10 @@ namespace MachineVision.Core.TemplateMatch
 
         public override void ApplyDefaultParameter()
         {
-            AngleStart = -0.39;
-            AngleExtent = 0.79;
+            AngleStart = 0;
+            AngleExtent = 360;
             MinScore = 0.5;
-            NumMatches = 1;
+            NumMatches = 10;
             Maxoverlap = 0.5;
             SubPixel = "least_squares";
             NumLevels = 0;

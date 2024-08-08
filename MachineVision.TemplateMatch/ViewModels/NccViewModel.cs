@@ -1,21 +1,30 @@
-﻿using Prism.Ioc;
-using MachineVision.Core;
+﻿using MachineVision.Core;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using Prism.Ioc;
+using HalconDotNet;
 using MachineVision.Core.TemplateMatch;
+using MachineVision.Shared.Controls;
+using Microsoft.Win32;
 using Prism.Commands;
 using System.Collections.ObjectModel;
-using HalconDotNet;
-using Microsoft.Win32;
-using MachineVision.Shared.Controls;
 
 namespace MachineVision.TemplateMatch.ViewModels
 {
-    public class ShapeViewModel: NavigationViewModel
+    /// <summary>
+    /// 相关性匹配
+    /// </summary>
+    public class NccViewModel:NavigationViewModel
     {
+
         public ITemplateMatchService MatchService { get; set; }
 
-        public ShapeViewModel() 
+        public NccViewModel()
         {
-            MatchService =  ContainerLocator.Current.Resolve<ITemplateMatchService>(nameof(TemplateMatchType.ShapeModel));
+            MatchService = ContainerLocator.Current.Resolve<ITemplateMatchService>(nameof(TemplateMatchType.NccModel));
             RunCommand = new DelegateCommand(Run);
             CreateTemplateCommand = new DelegateCommand(CreateTemplate);
             SetRangeCommand = new DelegateCommand(SetRange);
@@ -29,7 +38,7 @@ namespace MachineVision.TemplateMatch.ViewModels
         public HObject MaskObject
         {
             get { return maskObject; }
-            set { maskObject = value;RaisePropertyChanged(); }
+            set { maskObject = value; RaisePropertyChanged(); }
         }
 
 
@@ -70,7 +79,7 @@ namespace MachineVision.TemplateMatch.ViewModels
         {
             var hobject = DrawObjectList.FirstOrDefault();
             DrawObjectList.Clear();//清空,给后面创建模板时不拿错
-            if( hobject != null )
+            if (hobject != null)
             {
                 MatchService.RoiObject = new HObject(hobject.HObject);
                 MatchResult.Message = $"{DateTime.Now}:设置ROI成功!";
@@ -100,14 +109,14 @@ namespace MachineVision.TemplateMatch.ViewModels
         private void CreateTemplate()
         {
             var obj = DrawObjectList.FirstOrDefault();
-            if(obj != null)
+            if (obj != null)
             {
-                if(MaskObject != null)
+                if (MaskObject != null)
                 {
                     HOperatorSet.Difference(obj.HObject, MaskObject, out HObject regionDiffererce);
                     obj.HObject = regionDiffererce;
                 }
-                MatchService.CreateTemplate(Image,obj.HObject);
+                MatchService.CreateTemplate(Image, obj.HObject);
                 MatchResult.Message = $"{DateTime.Now}:创建模板成功!";
             }
         }
@@ -118,6 +127,5 @@ namespace MachineVision.TemplateMatch.ViewModels
         {
             MatchResult = MatchService.Run(Image);
         }
-
     }
 }

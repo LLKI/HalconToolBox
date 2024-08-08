@@ -1,4 +1,5 @@
-﻿using System;
+﻿using HalconDotNet;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -28,5 +29,9 @@ namespace MachineVision.Core.TemplateMatch
         /// 匹配分数
         /// </summary>
         public double Score { get; set; }
+        /// <summary>
+        /// 匹配结果
+        /// </summary>
+        public HObject Contours { get; set; }
     }
 }

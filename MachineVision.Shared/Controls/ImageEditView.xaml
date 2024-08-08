@@ -7,19 +7,31 @@
             <Setter.Value>
                 <ControlTemplate TargetType="control:ImageEditView">
                     <Grid Background="Black">
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="Auto" />
-                            <RowDefinition/>
-                        </Grid.RowDefinitions>
+                        <Grid.ContextMenu>
+                            <ContextMenu>
+                                <MenuItem Header="形状">
+                                    <MenuItem x:Name="PART_RECT"
+                                              Header="绘制矩形" />
+                                    <MenuItem x:Name="PART_Ellipse"
+                                              Header="绘制椭圆" />
+                                    <MenuItem x:Name="PART_Circle"
+                                              Header="绘制圆形" />
+                                    <MenuItem x:Name="PART_Region"
+                                              Header="绘制区域" />
+                                </MenuItem>
+                                <MenuItem x:Name="PART_MASK"
+                                          Header="创建掩模" />
+                                <MenuItem x:Name="PART_ClearAll"
+                                          Header="清除所有" />
+                            </ContextMenu>
+                        </Grid.ContextMenu>
 
-                        <TextBlock x:Name="PART_MEG" Margin="5" Foreground="White"/>
-                        <StackPanel Margin="5" HorizontalAlignment="Right" Orientation="Horizontal">
-                            <Button x:Name="PART_RECT" Content="绘制矩形" Margin="5" />
-                            <Button x:Name="PART_Ellipse" Content="绘制椭圆" Margin="5"/>
-                            <Button x:Name="PART_Circle" Content="绘制圆形" Margin="5"/>
-                            <Button x:Name="PART_Region" Content="绘制区域" Margin="5"/>
-                            <Button x:Name="PART_ClearAll" Content="清除所有" Margin="5"/>
-                        </StackPanel>
+                        <TextBlock x:Name="PART_MEG"
+                                   Margin="5"
+                                   Panel.ZIndex="1"
+                                   HorizontalAlignment="Left"
+                                   VerticalAlignment="Top"
+                                   Foreground="White" />
 
                         <halcon:HSmartWindowControlWPF x:Name="PART_SMART" Grid.Row="1"/>
                     </Grid>

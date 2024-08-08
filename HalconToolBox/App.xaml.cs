@@ -9,6 +9,8 @@ using Prism.Ioc;
 using Prism.Modularity;
 using Prism.Regions;
 using MachineVision.TemplateMatch;
+using MachineVision.Core.TemplateMatch.ShapeModel;
+using MachineVision.Core.TemplateMatch.NccModel;
 using MachineVision.Core.TemplateMatch;
 
 namespace HalconToolBox
@@ -48,7 +50,10 @@ namespace HalconToolBox
             services.RegisterForNavigation<MainView, MainViewModel>();
             services.RegisterForNavigation<DashBoardView, DashBoardViewModel>();
             services.RegisterSingleton<INavigationMenuService, NavigationMenuService>();
+
+
             services.Register<ITemplateMatchService,ShapeModelService>(nameof(TemplateMatchType.ShapeModel));
+            services.Register<ITemplateMatchService,NccModelService>(nameof(TemplateMatchType.NccModel));
         }
         protected override void ConfigureModuleCatalog(IModuleCatalog moduleCatalog)
         {

@@ -28,9 +28,8 @@ namespace HalconToolBox.Services
             {
                 new NavigationItem("","模板匹配","",new ObservableCollection<NavigationItem>()
                 {
-                    new NavigationItem("ShapeCirclePlus","轮廓匹配","DrawShapeView"),
                     new NavigationItem("ShapeOutline","形状匹配","ShapeView"),
-                    new NavigationItem("Clouds","相似性匹配",""),
+                    new NavigationItem("Clouds","相似性匹配","NccView"),
                     new NavigationItem("ShapeOvalPlus","形变匹配",""),
                 }),
                 new NavigationItem("","比较测量","",new ObservableCollection<NavigationItem>()

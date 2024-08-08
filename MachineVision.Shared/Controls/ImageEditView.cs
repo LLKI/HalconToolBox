@@ -1,5 +1,6 @@
 ﻿using HalconDotNet;
 using MachineVision.Core.TemplateMatch;
+using MachineVision.Shared.Extensions;
 using System.Collections.ObjectModel;
 using System.Windows;
 using System.Windows.Controls;
@@ -14,16 +15,16 @@ namespace MachineVision.Shared.Controls
 
 
 
-        public ObservableCollection<TemplateMatchResult> MatchResults
+        public MatchResult MatchResult
         {
-            get { return (ObservableCollection<TemplateMatchResult>)GetValue(MatchResultsProperty); }
-            set { SetValue(MatchResultsProperty, value); }
+            get { return (MatchResult)GetValue(MatchResultProperty); }
+            set { SetValue(MatchResultProperty, value); }
         }
 
-        public static readonly DependencyProperty MatchResultsProperty =
-            DependencyProperty.Register("MatchResults", typeof(ObservableCollection<TemplateMatchResult>), typeof(ImageEditView), new PropertyMetadata(MatchResultsCallBack));
+        public static readonly DependencyProperty MatchResultProperty =
+            DependencyProperty.Register("MatchResult", typeof(MatchResult), typeof(ImageEditView), new PropertyMetadata(MatchResultCallBack));
 
-        private static void MatchResultsCallBack(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        private static void MatchResultCallBack(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             if (d is ImageEditView view && e.NewValue != null)
             {
@@ -33,9 +34,26 @@ namespace MachineVision.Shared.Controls
 
         private void DisplayMatchRender()
         {
-            foreach (var item in MatchResults)
+            if(Image!=null) { Display(Image); }
+            if(MatchResult.Results != null)
             {
-                hWindow.DispCross(item.Row, item.Column, 25, item.Angle);
+                foreach (var item in MatchResult.Results)
+                {
+                    if (MatchResult.Setting.IsShowCenter)
+                    {
+                        hWindow.DispCross(item.Row, item.Column, 40, item.Angle);
+                    }
+
+                    if (MatchResult.Setting.IsShowDisplayText)
+                    {
+                        hWindow.disp_message($"({item.Row},{item.Column}) Score:{item.Score}", "image", item.Row, item.Column, "black", "true");
+                    }
+
+                    if (MatchResult.Setting.IsShowMatchRange)
+                    {
+                        hWindow.DispObj(item.Contours);
+                    }
+                }
             }
         }
 
@@ -47,6 +65,18 @@ namespace MachineVision.Shared.Controls
 
         public static readonly DependencyProperty ImageProperty =
             DependencyProperty.Register("Image", typeof(HObject), typeof(ImageEditView), new PropertyMetadata(ImageChangedCallback));
+
+        /// <summary>
+        /// 掩模
+        /// </summary>
+        public HObject MaskObject
+        {
+            get { return (HObject)GetValue(MaskObjectProperty); }
+            set { SetValue(MaskObjectProperty, value); }
+        }
+
+        public static readonly DependencyProperty MaskObjectProperty =
+            DependencyProperty.Register("MaskObject", typeof(HObject), typeof(ImageEditView), new PropertyMetadata(null));
 
 
 
@@ -85,7 +115,7 @@ namespace MachineVision.Shared.Controls
             }
 
             
-            if (GetTemplateChild("PART_RECT") is Button btnRect)
+            if (GetTemplateChild("PART_RECT") is MenuItem btnRect)
             {
                 btnRect.Click += (s, e) =>
                 {
@@ -93,7 +123,7 @@ namespace MachineVision.Shared.Controls
                 };
             }
 
-            if (GetTemplateChild("PART_Ellipse") is Button btnEllipse)
+            if (GetTemplateChild("PART_Ellipse") is MenuItem btnEllipse)
             {
                 btnEllipse.Click += (s, e) =>
                 {
@@ -101,7 +131,7 @@ namespace MachineVision.Shared.Controls
                 };
             }
 
-            if (GetTemplateChild("PART_Circle") is Button btnCircle)
+            if (GetTemplateChild("PART_Circle") is MenuItem btnCircle)
             {
                 btnCircle.Click += (s, e) =>
                 {
@@ -109,7 +139,7 @@ namespace MachineVision.Shared.Controls
                 };
             }
 
-            if (GetTemplateChild("PART_Region") is Button btnRegion)
+            if (GetTemplateChild("PART_Region") is MenuItem btnRegion)
             {
                 btnRegion.Click += (s, e) =>
                 {
@@ -117,7 +147,15 @@ namespace MachineVision.Shared.Controls
                 };
             }
 
-            if (GetTemplateChild("PART_ClearAll") is Button btnClear)
+            if (GetTemplateChild("PART_MASK") is MenuItem btnMask)
+            {
+                btnMask.Click += (s, e) =>
+                {
+                    SetMask();
+                };
+            }
+
+            if (GetTemplateChild("PART_ClearAll") is MenuItem btnClear)
             {
                 btnClear.Click += (s, e) =>
                 {
@@ -126,6 +164,11 @@ namespace MachineVision.Shared.Controls
             }
 
             base.OnApplyTemplate();
+        }
+
+        private void SetMask()
+        {
+            DrawRegion();
         }
 
         private async void ClearAll()
@@ -160,7 +203,8 @@ namespace MachineVision.Shared.Controls
                 HTuples = new HTuple[] { row, column,radius }
             });
             txtMeg.Text = String.Empty;
-            HOperatorSet.DispObj(CircleObj,hWindow);
+            HOperatorSet.GenContourRegionXld(CircleObj, out HObject contours, "border");
+            HOperatorSet.DispObj(contours, hWindow);
         }
 
         private async void DrawEllipse()
@@ -188,7 +232,8 @@ namespace MachineVision.Shared.Controls
                 HTuples = new HTuple[] { row, column, phi, radius1, radius2 }
             });
             txtMeg.Text = String.Empty;
-            HOperatorSet.DispObj(EllispeObj, hWindow);
+            HOperatorSet.GenContourRegionXld(EllispeObj, out HObject contours, "border");
+            HOperatorSet.DispObj(contours, hWindow);
         }
 
         private async void DrawRect()
@@ -215,7 +260,8 @@ namespace MachineVision.Shared.Controls
                 HTuples = new HTuple[] { row1, column1, row2, column2 }
             }); 
             txtMeg.Text = String.Empty;
-            HOperatorSet.DispObj(rectobj, hWindow);
+            HOperatorSet.GenContourRegionXld(rectobj, out HObject contours, "border");
+            HOperatorSet.DispObj(contours, hWindow);
         }
 
         private async void DrawRegion()
@@ -235,7 +281,9 @@ namespace MachineVision.Shared.Controls
                 HObject = RegionObject
             });
             txtMeg.Text = String.Empty;
-            HOperatorSet.DispObj(RegionObject, hWindow);
+            MaskObject = RegionObject;
+            HOperatorSet.GenContourRegionXld(RegionObject, out HObject contours, "border");
+            HOperatorSet.DispObj(contours, hWindow);
         }
 
         private void HSmart_Loaded(object sender, RoutedEventArgs e)
