@@ -1,0 +1,186 @@
+﻿<UserControl x:Class="MachineVision.ObjectMeasure.View.CircleMeasureView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:controls="clr-namespace:MachineVision.Shared.Controls;assembly=MachineVision.Shared"
+             Background="{DynamicResource MaterialDesign.Brush.Background}"
+             mc:Ignorable="d"
+             d:DesignHeight="450"
+             d:DesignWidth="800">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition></RowDefinition>
+        </Grid.RowDefinitions>
+
+        <StackPanel Margin="15"
+                    Grid.Row="0">
+            <TextBlock FontSize="22"
+                       FontWeight="Bold"
+                       Text="find_circle"
+                       Foreground="White" />
+            <TextBlock Text="add_metrology_object_circle_measure"
+                       Foreground="White" />
+        </StackPanel>
+
+        <Border Grid.Row="1"
+                BorderBrush="White"
+                BorderThickness="0,1,0,0"
+                Margin="0,0,0,15" />
+
+        <TabControl Grid.Row="1">
+            <TabItem Header="开始使用">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="0.3*" />
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
+
+                    <!--参数-->
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition />
+                            <RowDefinition Height="auto" />
+                        </Grid.RowDefinitions>
+
+                        <ScrollViewer VerticalScrollBarVisibility="Hidden">
+                            <StackPanel Margin="5,0">
+                                <Expander Header="图像源"
+                                          Foreground="White">
+                                    <Expander.Content>
+                                        <StackPanel Margin="0,5,5,5">
+                                            <Button Content="加载图像" Margin="0,0,0,5"
+                                                    Command="{Binding LoadImageCommand}" />
+                                            <Button Content="提取圆参数"
+                                                    Command="{Binding GetParameterCommand}" />
+                                        </StackPanel>
+                                    </Expander.Content>
+                                </Expander>
+
+                                <Expander Header="运行参数"
+                                          Foreground="White">
+                                    <Expander.Content>
+                                        <StackPanel>
+                                            <TextBlock Text="Row" />
+                                            <TextBox Margin="0,5,5,5"
+                                                     Padding="5"
+                                                     Text="{Binding CircleMeasureService.RunParameter.Row}"
+                                                     Style="{StaticResource MaterialDesignOutlinedTextBox}"
+                                                     Foreground="White" />
+                                            <TextBlock Text="Column" />
+                                            <TextBox Margin="0,5,5,5"
+                                                     Padding="5"
+                                                     Text="{Binding CircleMeasureService.RunParameter.Column}"
+                                                     Style="{StaticResource MaterialDesignOutlinedTextBox}"
+                                                     Foreground="White" />
+                                            <TextBlock Text="Radius" />
+                                            <TextBox Margin="0,5,5,5"
+                                                     Padding="5"
+                                                     Text="{Binding CircleMeasureService.RunParameter.Radius}"
+                                                     Style="{StaticResource MaterialDesignOutlinedTextBox}"
+                                                     Foreground="White" />
+                                            <TextBlock Text="MeasureLength1" />
+                                            <TextBox Margin="0,5,5,5"
+                                                     Padding="5"
+                                                     Text="{Binding CircleMeasureService.RunParameter.MeasureLength1}"
+                                                     Style="{StaticResource MaterialDesignOutlinedTextBox}"
+                                                     Foreground="White" />
+                                            <TextBlock Text="MeasureLength2" />
+                                            <TextBox Margin="0,5,5,5"
+                                                     Padding="5"
+                                                     Text="{Binding CircleMeasureService.RunParameter.MeasureLength2}"
+                                                     Style="{StaticResource MaterialDesignOutlinedTextBox}"
+                                                     Foreground="White" />
+                                            <TextBlock Text="MeasureSigma" />
+                                            <TextBox Margin="0,5,5,5"
+                                                     Padding="5"
+                                                     Text="{Binding CircleMeasureService.RunParameter.MeasureSigma}"
+                                                     Style="{StaticResource MaterialDesignOutlinedTextBox}"
+                                                     Foreground="White" />
+                                            <TextBlock Text="MeasureThreshold" />
+                                            <TextBox Margin="0,5,5,5"
+                                                     Padding="5"
+                                                     Text="{Binding CircleMeasureService.RunParameter.MeasureThreshold}"
+                                                     Style="{StaticResource MaterialDesignOutlinedTextBox}"
+                                                     Foreground="White" />
+                                        </StackPanel>
+                                    </Expander.Content>
+                                </Expander>
+                            </StackPanel>
+                        </ScrollViewer>
+
+                        <StackPanel Grid.Row="1"
+                                    Margin="0,5,5,5">
+                            <Button Content="执行"
+                                    Command="{Binding RunCommand}" />
+                        </StackPanel>
+                    </Grid>
+                    <!--图像编辑器-->
+                    <Grid Grid.Column="1">
+                        <Grid.RowDefinitions>
+                            <RowDefinition />
+                            <RowDefinition Height="auto" />
+                        </Grid.RowDefinitions>
+                        <controls:ImageEditView Image="{Binding Image}"
+                                                HWindow="{Binding CircleMeasureService.HWindow,Mode=TwoWay}"
+                                                DrawObjectList="{Binding DrawObjectList}" />
+                        <TextBlock Grid.Row="2"
+                                   Margin="5"
+                                   Text="{Binding Message}" />
+                    </Grid>
+                </Grid>
+            </TabItem>
+            <TabItem Header="参数说明">
+                <ScrollViewer VerticalScrollBarVisibility="Hidden">
+                    <ItemsControl Margin="15,5"
+                                  ItemsSource="{Binding CircleMeasureService.info.Parmeters}">
+                        <ItemsControl.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <StackPanel />
+                            </ItemsPanelTemplate>
+                        </ItemsControl.ItemsPanel>
+
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <StackPanel Margin="0,5,0,10">
+                                    <TextBlock Text="{Binding Name}"
+                                               Foreground="White"
+                                               FontWeight="Bold"
+                                               FontSize="14" />
+                                    <TextBlock Text="{Binding Description}"
+                                               Foreground="White"
+                                               Margin="20,5,0,0" />
+                                </StackPanel>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                </ScrollViewer>
+            </TabItem>
+            <TabItem Header="关联算子">
+                <ScrollViewer VerticalScrollBarVisibility="Auto">
+                    <ItemsControl Margin="15,5"
+                                  ItemsSource="{Binding CircleMeasureService.info.Predecessors}">
+                        <ItemsControl.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <StackPanel />
+                            </ItemsPanelTemplate>
+                        </ItemsControl.ItemsPanel>
+
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <StackPanel Margin="0,5,0,10">
+                                    <TextBlock Text="{Binding}"
+                                               Foreground="White" />
+                                </StackPanel>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                </ScrollViewer>
+            </TabItem>
+            <TabItem Header="代码示例" />
+
+        </TabControl>
+    </Grid>
+</UserControl>

@@ -46,8 +46,8 @@
                             <RowDefinition Height="auto" />
                         </Grid.RowDefinitions>
 
-                        <StackPanel Margin="0,5,5,5">
-                            <Button Content="加载图像"
+                        <StackPanel Margin="5,0">
+                            <Button Content="加载图像" Margin="0,5,0,0"
                                     Command="{Binding LoadImageCommand}" />
                             <Button Content="设置识别范围"
                                     Command="{Binding SetRangeCommand}"
@@ -55,7 +55,7 @@
                         </StackPanel>
 
                         <StackPanel Grid.Row="1"
-                                    Margin="0,5,5,5">
+                                    Margin="5,0">
                             <Button Content="执行"
                                     Command="{Binding RunCommand}" />
                         </StackPanel>

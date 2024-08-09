@@ -9,7 +9,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MachineVision.TemplateMatch
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MachineVision.Core", "MachineVision.Core\MachineVision.Core.csproj", "{D0E9FA28-0111-4230-B656-C70549EDD000}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MachineVision.Shared", "MachineVision.Shared\MachineVision.Shared.csproj", "{CBBE7A0E-2EC8-4229-8D3B-77FEF6E11A46}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MachineVision.Shared", "MachineVision.Shared\MachineVision.Shared.csproj", "{CBBE7A0E-2EC8-4229-8D3B-77FEF6E11A46}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MachineVision.ObjectMeasure", "MachineVision.ObjectMeasure\MachineVision.ObjectMeasure.csproj", "{8A676B37-57E1-4E23-879F-E2DD62FC41D1}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,10 @@ Global
 		{CBBE7A0E-2EC8-4229-8D3B-77FEF6E11A46}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CBBE7A0E-2EC8-4229-8D3B-77FEF6E11A46}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CBBE7A0E-2EC8-4229-8D3B-77FEF6E11A46}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8A676B37-57E1-4E23-879F-E2DD62FC41D1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8A676B37-57E1-4E23-879F-E2DD62FC41D1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8A676B37-57E1-4E23-879F-E2DD62FC41D1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8A676B37-57E1-4E23-879F-E2DD62FC41D1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

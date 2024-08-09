@@ -15,6 +15,19 @@ namespace MachineVision.Shared.Controls
 
 
 
+
+        public HWindow HWindow
+        {
+            get { return (HWindow)GetValue(HWindowProperty); }
+            set { SetValue(HWindowProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for HWindow.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty HWindowProperty =
+            DependencyProperty.Register("HWindow", typeof(HWindow), typeof(ImageEditView), new PropertyMetadata(null));
+
+
+
         public MatchResult MatchResult
         {
             get { return (MatchResult)GetValue(MatchResultProperty); }
@@ -289,6 +302,7 @@ namespace MachineVision.Shared.Controls
         private void HSmart_Loaded(object sender, RoutedEventArgs e)
         {
             hWindow = this.hSmart.HalconWindow;
+            HWindow = hWindow;
         }
     }
 }

@@ -34,7 +34,7 @@ namespace HalconToolBox.Services
                 }),
                 new NavigationItem("","比较测量","",new ObservableCollection<NavigationItem>()
                 {
-                    new NavigationItem("Circle","卡尺找圆",""),
+                    new NavigationItem("Circle","卡尺找圆","CircleMeasureView"),
                     new NavigationItem("Palette","颜色检测",""),
                     new NavigationItem("Ruler","几何测量",""),
                 }),

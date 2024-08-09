@@ -16,6 +16,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\MachineVision.Core\MachineVision.Core.csproj" />
+    <ProjectReference Include="..\MachineVision.ObjectMeasure\MachineVision.ObjectMeasure.csproj" />
     <ProjectReference Include="..\MachineVision.Shared\MachineVision.Shared.csproj" />
     <ProjectReference Include="..\MachineVision.TemplateMatch\MachineVision.TemplateMatch.csproj" />
   </ItemGroup>
