@@ -40,7 +40,7 @@ namespace HalconToolBox.Services
                 }),
                 new NavigationItem("","字符识别","",new ObservableCollection<NavigationItem>()
                 {
-                    new NavigationItem("FormatColorText","字符识别",""),
+                    new NavigationItem("FormatColorText","字符识别","CharRecognitionView"),
                     new NavigationItem("Barcode","一维码识别","BarCodeView"),
                     new NavigationItem("Qrcode","二维码识别","QRCodeView"),
                 }),

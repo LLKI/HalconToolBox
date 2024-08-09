@@ -61,6 +61,7 @@ namespace HalconToolBox
             services.Register<BarCodeService>();
             services.Register<QRCodeService>();
             services.Register<CircleMeasureService>();
+            services.Register<CharRecognitionService>();
         }
         protected override void ConfigureModuleCatalog(IModuleCatalog moduleCatalog)
         {

@@ -19,6 +19,7 @@ namespace MachineVision.TemplateMatch
             containerRegistry.RegisterForNavigation<NccView,NccViewModel>();
             containerRegistry.RegisterForNavigation<QRCodeView,QRCodeViewModel>();
             containerRegistry.RegisterForNavigation<BarCodeView, BarCodeViewModel>();
+            containerRegistry.RegisterForNavigation<CharRecognitionView, CharRecognitionViewModel>();
         }
     }
 }

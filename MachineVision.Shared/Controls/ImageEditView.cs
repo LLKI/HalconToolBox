@@ -13,16 +13,11 @@ namespace MachineVision.Shared.Controls
         private HWindow hWindow;
         public TextBlock txtMeg;
 
-
-
-
         public HWindow HWindow
         {
             get { return (HWindow)GetValue(HWindowProperty); }
             set { SetValue(HWindowProperty, value); }
         }
-
-        // Using a DependencyProperty as the backing store for HWindow.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty HWindowProperty =
             DependencyProperty.Register("HWindow", typeof(HWindow), typeof(ImageEditView), new PropertyMetadata(null));
 
