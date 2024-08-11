@@ -48,11 +48,22 @@ namespace MachineVision.Core.TemplateMatch.OCR
 
         public OcrMatchResult Run(HObject image)
         {
+            HObject imageReduced;
+            HOperatorSet.GenEmptyObj(out imageReduced);
+            if (RoiObject != null)
+            {
+                HOperatorSet.ReduceDomain(image, (HObject)RoiObject, out imageReduced);
+                RoiObject = null;//用完就清空
+            }
+            else
+            {
+                imageReduced = image;
+            }
             double timespan = SetTimeHepler.SetTimer(() =>
             {
-                HOperatorSet.FindDataCode2d(image, out ho_SymbolXLDs, hv_DataCodeHandle, new HTuple(), new HTuple(), out hv_ResultHandles, out hv_DecodedDataStrings);
+                HOperatorSet.FindDataCode2d(imageReduced, out ho_SymbolXLDs, hv_DataCodeHandle, new HTuple(), new HTuple(), out hv_ResultHandles, out hv_DecodedDataStrings);
             });
-            if (!string.IsNullOrWhiteSpace(hv_DecodedDataStrings))
+            if (hv_DecodedDataStrings.Length>0)
             {
                 return new OcrMatchResult
                 {

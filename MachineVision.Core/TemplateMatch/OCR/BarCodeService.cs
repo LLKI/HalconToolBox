@@ -37,16 +37,35 @@ namespace MachineVision.Core.TemplateMatch.OCR
         HTuple hv_Reference = new HTuple(), hv_String = new HTuple();
         HTuple hv_J = new HTuple(), hv_Char = new HTuple();
 
-        public OcrMatchResult Run(HObject image)//从导出程序的Actuon中
+        public OcrMatchResult Run(HObject image)
         {
+            HObject imageReduced;
+            HOperatorSet.GenEmptyObj(out imageReduced);
+            if (RoiObject != null)
+            {
+                HOperatorSet.ReduceDomain(image, (HObject)RoiObject, out imageReduced);
+                RoiObject = null;//用完就清空
+            }
+            else
+            {
+                imageReduced = image;
+            }
+
             double timespan = SetTimeHepler.SetTimer(() =>
             {
-                HOperatorSet.FindBarCode(image, out ho_SymbolRegions, hv_BarCodeHandle, "Code 128", out hv_DecodedDataStrings);
+                HOperatorSet.FindBarCode(imageReduced, out ho_SymbolRegions, hv_BarCodeHandle, "Code 128", out hv_DecodedDataStrings);
+                if(hv_DecodedDataStrings.Length==0)
+                {
+                    return;
+                }
                 HOperatorSet.GetBarCodeResult(hv_BarCodeHandle, 0, "decoded_reference", out hv_Reference);
             });
-            hv_String.Dispose();
+            if (hv_DecodedDataStrings.Length == 0)
+            {
+                return new OcrMatchResult() { IsSuccess = false, Message = $"{DateTime.Now} 匹配耗时:{timespan} ms,匹配失败" };
+            }
             hv_String = "";
-            HTuple end_val15 = (hv_DecodedDataStrings.TupleStrlen()) - 1;//???
+            HTuple end_val15 = (hv_DecodedDataStrings.TupleStrlen()) - 1;
             HTuple step_val15 = 1;
             for (hv_J = 0; hv_J.Continue(end_val15, step_val15); hv_J = hv_J.TupleAdd(step_val15))
             {

@@ -104,7 +104,7 @@ namespace MachineVision.Core.TemplateMatch.ShapeModel
                 matchResult.Message = "输入图像无效!";
                 return matchResult;
             }
-            if(modelId == null)
+            if(modelId.Length == 0)
             {
                 matchResult.Message = "输入模板无效!";
                 return matchResult;
@@ -117,6 +117,7 @@ namespace MachineVision.Core.TemplateMatch.ShapeModel
                 if (RoiObject != null)
                 {
                     HOperatorSet.ReduceDomain(image, (HObject)RoiObject, out imageReduced);
+                    RoiObject = null;//用完就清空
                 }
                 else
                 {

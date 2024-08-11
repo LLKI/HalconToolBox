@@ -182,6 +182,7 @@ namespace MachineVision.Shared.Controls
         private async void ClearAll()
         {
             DrawObjectList?.Clear();
+            
             hWindow.ClearWindow();
             if(Image!=null)
             {
@@ -199,7 +200,7 @@ namespace MachineVision.Shared.Controls
             txtMeg.Text = "按鼠标左键绘制，右键结束";
             await Task.Run(() =>
             {
-                HOperatorSet.SetColor(hWindow, "blue");
+                HOperatorSet.SetColor(hWindow, "red");
                 HOperatorSet.DrawCircle(hWindow, out row, out column, out radius);
                 HOperatorSet.GenCircle(out CircleObj,row, column, radius);
             });
@@ -227,7 +228,7 @@ namespace MachineVision.Shared.Controls
             txtMeg.Text = "按鼠标左键绘制，右键结束";
             await Task.Run(() =>
             {
-                HOperatorSet.SetColor(hWindow, "blue");
+                HOperatorSet.SetColor(hWindow, "red");
                 HOperatorSet.DrawEllipse(hWindow, out row, out column, out phi,out radius1,out radius2);
 
                 HOperatorSet.GenEllipse(out EllispeObj, row, column, phi,radius1,radius2);
@@ -254,7 +255,7 @@ namespace MachineVision.Shared.Controls
             txtMeg.Text = "按鼠标左键绘制，右键结束";
             await Task.Run(() =>
             {
-                HOperatorSet.SetColor(hWindow, "blue");
+                HOperatorSet.SetColor(hWindow, "red");
                 HOperatorSet.DrawRectangle1(hWindow, out row1, out column1, out row2, out column2);
 
                 HOperatorSet.GenRectangle1(out rectobj, row1, column1, row2, column2);
@@ -279,7 +280,7 @@ namespace MachineVision.Shared.Controls
             txtMeg.Text = "按鼠标左键绘制，右键结束";
             await Task.Run(() =>
             {
-                HOperatorSet.SetColor(hWindow, "blue");
+                HOperatorSet.SetColor(hWindow, "red");
                 HOperatorSet.DrawRegion(out RegionObject,hWindow);
             });
             if (RegionObject == null) { return; }
