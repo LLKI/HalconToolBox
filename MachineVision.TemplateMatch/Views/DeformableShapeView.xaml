@@ -1,0 +1,586 @@
+﻿<UserControl x:Class="MachineVision.TemplateMatch.Views.DeformableShapeView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:local="clr-namespace:MachineVision.TemplateMatch.Views"
+             xmlns:controls="clr-namespace:MachineVision.Shared.Controls;assembly=MachineVision.Shared"
+             Background="{DynamicResource MaterialDesign.Brush.Background}"
+             mc:Ignorable="d"
+             d:DesignHeight="450"
+             d:DesignWidth="800">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition></RowDefinition>
+        </Grid.RowDefinitions>
+
+        <StackPanel Margin="15"
+                    Grid.Row="0">
+            <TextBlock FontSize="22"
+                       FontWeight="Bold"
+                       Text="{Binding MatchService.info.Name}"
+                       Foreground="White" />
+            <TextBlock Text="{Binding MatchService.info.Description}"
+                       Foreground="White" />
+        </StackPanel>
+
+        <Border Grid.Row="1"
+                BorderBrush="White"
+                BorderThickness="0,1,0,0"
+                Margin="0,0,0,15" />
+
+        <TabControl Grid.Row="1">
+            <TabItem Header="开始使用">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="0.3*" />
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
+
+                    <!--参数-->
+                    <Grid>
+                        <TabControl Margin="10,0">
+                            <TabItem Header="基本参数">
+                                <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition />
+                                        <RowDefinition Height="auto" />
+                                    </Grid.RowDefinitions>
+
+                                    <ScrollViewer VerticalScrollBarVisibility="Hidden">
+                                        <StackPanel>
+                                            <Expander Header="图像源"
+                                                      Foreground="White">
+                                                <Expander.Content>
+                                                    <StackPanel Margin="0,5,5,5">
+                                                        <Button Content="加载图像"
+                                                                Command="{Binding LoadImageCommand}" />
+                                                    </StackPanel>
+                                                </Expander.Content>
+                                            </Expander>
+
+                                            <Expander Header="ROI范围"
+                                                      Foreground="White">
+                                                <Expander.Content>
+                                                    <StackPanel Margin="0,5,5,5">
+                                                        <Button Content="设置识别范围"
+                                                                Command="{Binding SetRangeCommand}" />
+                                                    </StackPanel>
+                                                </Expander.Content>
+                                            </Expander>
+
+                                            <Expander Header="ROI模板参数"
+                                                      Foreground="White">
+                                                <Expander.Content>
+                                                    <StackPanel>
+                                                        <TextBlock Text="NumLevels" />
+                                                        <ComboBox Margin="0,5,5,5"
+                                                                  Padding="5"
+                                                                  Text="{Binding MatchService.TemplateParameter.NumLevels}"
+                                                                  Style="{StaticResource MaterialDesignOutlinedComboBox}"
+                                                                  Foreground="White">
+                                                            <ComboBoxItem>auto</ComboBoxItem>
+                                                            <ComboBoxItem>1</ComboBoxItem>
+                                                            <ComboBoxItem>2</ComboBoxItem>
+                                                            <ComboBoxItem>3</ComboBoxItem>
+                                                            <ComboBoxItem>4</ComboBoxItem>
+                                                            <ComboBoxItem>5</ComboBoxItem>
+                                                            <ComboBoxItem>6</ComboBoxItem>
+                                                            <ComboBoxItem>7</ComboBoxItem>
+                                                            <ComboBoxItem>8</ComboBoxItem>
+                                                            <ComboBoxItem>9</ComboBoxItem>
+                                                            <ComboBoxItem>10</ComboBoxItem>
+                                                        </ComboBox>
+                                                        <TextBlock Text="AngleStart" />
+                                                        <TextBox Margin="0,5,5,5"
+                                                                 Padding="5"
+                                                                 Text="{Binding MatchService.TemplateParameter.AngleStart}"
+                                                                 Style="{StaticResource MaterialDesignOutlinedTextBox}"
+                                                                 Foreground="White" />
+                                                        <TextBlock Text="AngleExtent" />
+                                                        <TextBox Margin="0,5,5,5"
+                                                                 Padding="5"
+                                                                 Text="{Binding MatchService.TemplateParameter.AngleExtent}"
+                                                                 Style="{StaticResource MaterialDesignOutlinedTextBox}"
+                                                                 Foreground="White" />
+                                                        <TextBlock Text="AngleStep" />
+                                                        <ComboBox Margin="0,5,5,5"
+                                                                  Padding="5"
+                                                                  Text="{Binding MatchService.TemplateParameter.AngleStep}"
+                                                                  Style="{StaticResource MaterialDesignOutlinedComboBox}"
+                                                                  Foreground="White">
+                                                            <ComboBoxItem>auto</ComboBoxItem>
+                                                            <ComboBoxItem>0.0175</ComboBoxItem>
+                                                            <ComboBoxItem>0.0349</ComboBoxItem>
+                                                            <ComboBoxItem>0.0524</ComboBoxItem>
+                                                            <ComboBoxItem>0.0698</ComboBoxItem>
+                                                            <ComboBoxItem>0.0873</ComboBoxItem>
+                                                        </ComboBox>
+                                                        <TextBlock Text="ScaleRMin" />
+                                                        <ComboBox Margin="0,5,5,5"
+                                                                  Padding="5"
+                                                                  Text="{Binding MatchService.TemplateParameter.ScaleRMin}"
+                                                                  Style="{StaticResource MaterialDesignOutlinedComboBox}"
+                                                                  Foreground="White">
+                                                            <ComboBoxItem>auto</ComboBoxItem>
+                                                            <ComboBoxItem>0.5</ComboBoxItem>
+                                                            <ComboBoxItem>0.6</ComboBoxItem>
+                                                            <ComboBoxItem>0.7</ComboBoxItem>
+                                                            <ComboBoxItem>0.8</ComboBoxItem>
+                                                            <ComboBoxItem>0.9</ComboBoxItem>
+                                                            <ComboBoxItem>1</ComboBoxItem>
+                                                        </ComboBox>
+                                                        <TextBlock Text="ScaleRStep" />
+                                                        <ComboBox Margin="0,5,5,5"
+                                                                  Padding="5"
+                                                                  Text="{Binding MatchService.TemplateParameter.ScaleRStep}"
+                                                                  Style="{StaticResource MaterialDesignOutlinedComboBox}"
+                                                                  Foreground="White">
+                                                            <ComboBoxItem>auto</ComboBoxItem>
+                                                            <ComboBoxItem>0.01</ComboBoxItem>
+                                                            <ComboBoxItem>0.02</ComboBoxItem>
+                                                            <ComboBoxItem>0.05</ComboBoxItem>
+                                                            <ComboBoxItem>0.1</ComboBoxItem>
+                                                            <ComboBoxItem>0.15</ComboBoxItem>
+                                                        </ComboBox>
+
+                                                        <TextBlock Text="ScaleCMin" />
+                                                        <ComboBox Margin="0,5,5,5"
+                                                                  Padding="5"
+                                                                  Text="{Binding MatchService.TemplateParameter.ScaleCMin}"
+                                                                  Style="{StaticResource MaterialDesignOutlinedComboBox}"
+                                                                  Foreground="White">
+                                                            <ComboBoxItem>0.5</ComboBoxItem>
+                                                            <ComboBoxItem>0.6</ComboBoxItem>
+                                                            <ComboBoxItem>0.7</ComboBoxItem>
+                                                            <ComboBoxItem>0.8</ComboBoxItem>
+                                                            <ComboBoxItem>0.9</ComboBoxItem>
+                                                            <ComboBoxItem>1</ComboBoxItem>
+                                                        </ComboBox>
+
+                                                        <TextBlock Text="ScaleCStep" />
+                                                        <ComboBox Margin="0,5,5,5"
+                                                                  Padding="5"
+                                                                  Text="{Binding MatchService.TemplateParameter.ScaleCStep}"
+                                                                  Style="{StaticResource MaterialDesignOutlinedComboBox}"
+                                                                  Foreground="White">
+                                                            <ComboBoxItem>auto</ComboBoxItem>
+                                                            <ComboBoxItem>0.01</ComboBoxItem>
+                                                            <ComboBoxItem>0.02</ComboBoxItem>
+                                                            <ComboBoxItem>0.05</ComboBoxItem>
+                                                            <ComboBoxItem>0.1</ComboBoxItem>
+                                                            <ComboBoxItem>0.15</ComboBoxItem>
+                                                        </ComboBox>
+
+                                                        <TextBlock Text="Optimization" />
+                                                        <ComboBox Margin="0,5,5,5"
+                                                                  Padding="5"
+                                                                  Text="{Binding MatchService.TemplateParameter.Optimization}"
+                                                                  Style="{StaticResource MaterialDesignOutlinedComboBox}"
+                                                                  Foreground="White">
+                                                            <ComboBoxItem>auto</ComboBoxItem>
+                                                            <ComboBoxItem>none</ComboBoxItem>
+                                                            <ComboBoxItem>point_reduction_low</ComboBoxItem>
+                                                            <ComboBoxItem>point_reduction_medium</ComboBoxItem>
+                                                            <ComboBoxItem>point_reduction_high</ComboBoxItem>
+                                                        </ComboBox>
+                                                        <TextBlock Text="Metric" />
+                                                        <ComboBox Margin="0,5,5,5"
+                                                                  Padding="5"
+                                                                  Text="{Binding MatchService.TemplateParameter.Metric}"
+                                                                  Style="{StaticResource MaterialDesignOutlinedComboBox}"
+                                                                  Foreground="White">
+                                                            <ComboBoxItem>use_polarity</ComboBoxItem>
+                                                            <ComboBoxItem>ignore_global_polarity</ComboBoxItem>
+                                                            <ComboBoxItem>ignore_part_polarity</ComboBoxItem>
+                                                            <ComboBoxItem>ignore_local_polarity</ComboBoxItem>
+                                                            <ComboBoxItem>ignore_color_polarity</ComboBoxItem>
+                                                        </ComboBox>
+                                                        <TextBlock Text="Contrast" />
+                                                        <ComboBox Margin="0,5,5,5"
+                                                                  Padding="5"
+                                                                  Text="{Binding MatchService.TemplateParameter.Contrast}"
+                                                                  Style="{StaticResource MaterialDesignOutlinedComboBox}"
+                                                                  Foreground="White">
+                                                            <ComboBoxItem>auto</ComboBoxItem>
+                                                            <ComboBoxItem>10</ComboBoxItem>
+                                                            <ComboBoxItem>20</ComboBoxItem>
+                                                            <ComboBoxItem>30</ComboBoxItem>
+                                                            <ComboBoxItem>40</ComboBoxItem>
+                                                            <ComboBoxItem>60</ComboBoxItem>
+                                                            <ComboBoxItem>80</ComboBoxItem>
+                                                            <ComboBoxItem>100</ComboBoxItem>
+                                                            <ComboBoxItem>120</ComboBoxItem>
+                                                            <ComboBoxItem>140</ComboBoxItem>
+                                                            <ComboBoxItem>160</ComboBoxItem>
+                                                        </ComboBox>
+                                                        <TextBlock Text="MinContrast" />
+                                                        <ComboBox Margin="0,5,5,5"
+                                                                  Padding="5"
+                                                                  Text="{Binding MatchService.TemplateParameter.MinContrast}"
+                                                                  Style="{StaticResource MaterialDesignOutlinedComboBox}"
+                                                                  Foreground="White">
+                                                            <ComboBoxItem>auto</ComboBoxItem>
+                                                            <ComboBoxItem>1</ComboBoxItem>
+                                                            <ComboBoxItem>2</ComboBoxItem>
+                                                            <ComboBoxItem>3</ComboBoxItem>
+                                                            <ComboBoxItem>4</ComboBoxItem>
+                                                            <ComboBoxItem>5</ComboBoxItem>
+                                                            <ComboBoxItem>7</ComboBoxItem>
+                                                            <ComboBoxItem>10</ComboBoxItem>
+                                                            <ComboBoxItem>20</ComboBoxItem>
+                                                            <ComboBoxItem>30</ComboBoxItem>
+                                                            <ComboBoxItem>40</ComboBoxItem>
+                                                        </ComboBox>
+
+                                                        <TextBlock Text="GenParamName" />
+                                                        <ComboBox Margin="0,5,5,5"
+                                                                  Padding="5"
+                                                                  Text="{Binding MatchService.TemplateParameter.GenParamName}"
+                                                                  Style="{StaticResource MaterialDesignOutlinedComboBox}"
+                                                                  Foreground="White">
+                                                            <ComboBoxItem>min_size</ComboBoxItem>
+                                                            <ComboBoxItem>part_size</ComboBoxItem>
+                                                        </ComboBox>
+                                                        <TextBlock Text="GenParamValue" />
+                                                        <ComboBox Margin="0,5,5,5"
+                                                                  Padding="5"
+                                                                  Text="{Binding MatchService.TemplateParameter.GenParamValue}"
+                                                                  Style="{StaticResource MaterialDesignOutlinedComboBox}"
+                                                                  Foreground="White">
+                                                            <ComboBoxItem>small</ComboBoxItem>
+                                                            <ComboBoxItem>medium</ComboBoxItem>
+                                                            <ComboBoxItem>big</ComboBoxItem>
+                                                        </ComboBox>
+
+                                                        <StackPanel Grid.Row="1"
+                                                                    Margin="0,5,5,5">
+                                                            <Button Content="创建匹配模板"
+                                                                    Command="{Binding CreateTemplateCommand}" />
+                                                        </StackPanel>
+                                                    </StackPanel>
+                                                </Expander.Content>
+                                            </Expander>
+
+                                            <Expander Header="运行参数"
+                                                      Foreground="White">
+                                                <Expander.Content>
+                                                    <StackPanel>
+                                                        <TextBlock Text="NumLevels" />
+                                                        <ComboBox Margin="0,5,5,5"
+                                                                  Padding="5"
+                                                                  Text="{Binding MatchService.TemplateParameter.NumLevels}"
+                                                                  Style="{StaticResource MaterialDesignOutlinedComboBox}"
+                                                                  Foreground="White">
+                                                            <ComboBoxItem>auto</ComboBoxItem>
+                                                            <ComboBoxItem>1</ComboBoxItem>
+                                                            <ComboBoxItem>2</ComboBoxItem>
+                                                            <ComboBoxItem>3</ComboBoxItem>
+                                                            <ComboBoxItem>4</ComboBoxItem>
+                                                            <ComboBoxItem>5</ComboBoxItem>
+                                                            <ComboBoxItem>6</ComboBoxItem>
+                                                            <ComboBoxItem>7</ComboBoxItem>
+                                                            <ComboBoxItem>8</ComboBoxItem>
+                                                            <ComboBoxItem>9</ComboBoxItem>
+                                                            <ComboBoxItem>10</ComboBoxItem>
+                                                        </ComboBox>
+                                                        <TextBlock Text="AngleStart" />
+                                                        <TextBox Margin="0,5,5,5"
+                                                                 Padding="5"
+                                                                 Text="{Binding MatchService.RunParameter.AngleStart}"
+                                                                 Style="{StaticResource MaterialDesignOutlinedTextBox}"
+                                                                 Foreground="White" />
+                                                        <TextBlock Text="AngleExtent" />
+                                                        <TextBox Margin="0,5,5,5"
+                                                                 Padding="5"
+                                                                 Text="{Binding MatchService.RunParameter.AngleExtent}"
+                                                                 Style="{StaticResource MaterialDesignOutlinedTextBox}"
+                                                                 Foreground="White" />
+                                                        <TextBlock Text="ScaleRMin" />
+                                                        <ComboBox Margin="0,5,5,5"
+                                                                  Padding="5"
+                                                                  Text="{Binding MatchService.RunParameter.ScaleRMin}"
+                                                                  Style="{StaticResource MaterialDesignOutlinedComboBox}"
+                                                                  Foreground="White">
+                                                            <ComboBoxItem>auto</ComboBoxItem>
+                                                            <ComboBoxItem>0.5</ComboBoxItem>
+                                                            <ComboBoxItem>0.6</ComboBoxItem>
+                                                            <ComboBoxItem>0.7</ComboBoxItem>
+                                                            <ComboBoxItem>0.8</ComboBoxItem>
+                                                            <ComboBoxItem>0.9</ComboBoxItem>
+                                                            <ComboBoxItem>1</ComboBoxItem>
+                                                        </ComboBox>
+                                                        <TextBlock Text="ScaleRMax" />
+                                                        <ComboBox Margin="0,5,5,5"
+                                                                  Padding="5"
+                                                                  Text="{Binding MatchService.RunParameter.ScaleRMax}"
+                                                                  Style="{StaticResource MaterialDesignOutlinedComboBox}"
+                                                                  Foreground="White">
+                                                            <ComboBoxItem>auto</ComboBoxItem>
+                                                            <ComboBoxItem>1</ComboBoxItem>
+                                                            <ComboBoxItem>1.1</ComboBoxItem>
+                                                            <ComboBoxItem>1.2</ComboBoxItem>
+                                                            <ComboBoxItem>1.3</ComboBoxItem>
+                                                            <ComboBoxItem>1.4</ComboBoxItem>
+                                                            <ComboBoxItem>1.5</ComboBoxItem>
+                                                        </ComboBox>
+
+                                                        <TextBlock Text="ScaleCMin" />
+                                                        <ComboBox Margin="0,5,5,5"
+                                                                  Padding="5"
+                                                                  Text="{Binding MatchService.RunParameter.ScaleCMin}"
+                                                                  Style="{StaticResource MaterialDesignOutlinedComboBox}"
+                                                                  Foreground="White">
+                                                            <ComboBoxItem>0.5</ComboBoxItem>
+                                                            <ComboBoxItem>0.6</ComboBoxItem>
+                                                            <ComboBoxItem>0.7</ComboBoxItem>
+                                                            <ComboBoxItem>0.8</ComboBoxItem>
+                                                            <ComboBoxItem>0.9</ComboBoxItem>
+                                                            <ComboBoxItem>1</ComboBoxItem>
+                                                        </ComboBox>
+
+                                                        <TextBlock Text="ScaleCMax" />
+                                                        <ComboBox Margin="0,5,5,5"
+                                                                  Padding="5"
+                                                                  Text="{Binding MatchService.RunParameter.ScaleCMax}"
+                                                                  Style="{StaticResource MaterialDesignOutlinedComboBox}"
+                                                                  Foreground="White">
+                                                            <ComboBoxItem>auto</ComboBoxItem>
+                                                            <ComboBoxItem>1</ComboBoxItem>
+                                                            <ComboBoxItem>1.1</ComboBoxItem>
+                                                            <ComboBoxItem>1.2</ComboBoxItem>
+                                                            <ComboBoxItem>1.3</ComboBoxItem>
+                                                            <ComboBoxItem>1.4</ComboBoxItem>
+                                                            <ComboBoxItem>1.5</ComboBoxItem>
+                                                        </ComboBox>
+
+                                                        <TextBlock Text="MinScore" />
+                                                        <ComboBox Margin="0,5,5,5"
+                                                                  Padding="5"
+                                                                  Text="{Binding MatchService.RunParameter.MinScore}"
+                                                                  Style="{StaticResource MaterialDesignOutlinedComboBox}"
+                                                                  Foreground="White">
+                                                            <ComboBoxItem>0.3</ComboBoxItem>
+                                                            <ComboBoxItem>0.4</ComboBoxItem>
+                                                            <ComboBoxItem>0.5</ComboBoxItem>
+                                                            <ComboBoxItem>0.6</ComboBoxItem>
+                                                            <ComboBoxItem>0.7</ComboBoxItem>
+                                                            <ComboBoxItem>0.8</ComboBoxItem>
+                                                            <ComboBoxItem>0.9</ComboBoxItem>
+                                                            <ComboBoxItem>1</ComboBoxItem>
+                                                        </ComboBox>
+                                                        <TextBlock Text="NumMatches" />
+                                                        <TextBox Margin="0,5,5,5"
+                                                                 Padding="5"
+                                                                 Text="{Binding MatchService.RunParameter.NumMatches}"
+                                                                 Style="{StaticResource MaterialDesignOutlinedTextBox}"
+                                                                 Foreground="White">
+                                                        </TextBox>
+                                                        <TextBlock Text="Maxoverlap" />
+                                                        <ComboBox Margin="0,5,5,5"
+                                                                  Padding="5"
+                                                                  Text="{Binding MatchService.RunParameter.Maxoverlap}"
+                                                                  Style="{StaticResource MaterialDesignOutlinedComboBox}"
+                                                                  Foreground="White">
+                                                            <ComboBoxItem>0</ComboBoxItem>
+                                                            <ComboBoxItem>0.1</ComboBoxItem>
+                                                            <ComboBoxItem>0.2</ComboBoxItem>
+                                                            <ComboBoxItem>0.3</ComboBoxItem>
+                                                            <ComboBoxItem>0.4</ComboBoxItem>
+                                                            <ComboBoxItem>0.5</ComboBoxItem>
+                                                            <ComboBoxItem>0.6</ComboBoxItem>
+                                                            <ComboBoxItem>0.7</ComboBoxItem>
+                                                            <ComboBoxItem>0.8</ComboBoxItem>
+                                                            <ComboBoxItem>0.9</ComboBoxItem>
+                                                            <ComboBoxItem>1</ComboBoxItem>
+                                                        </ComboBox>
+
+                                                        <TextBlock Text="Greediness" />
+                                                        <ComboBox Margin="0,5,5,5"
+                                                                  Padding="5"
+                                                                  Text="{Binding MatchService.RunParameter.Greediness}"
+                                                                  Style="{StaticResource MaterialDesignOutlinedComboBox}"
+                                                                  Foreground="White">
+                                                            <ComboBoxItem>0</ComboBoxItem>
+                                                            <ComboBoxItem>0.1</ComboBoxItem>
+                                                            <ComboBoxItem>0.2</ComboBoxItem>
+                                                            <ComboBoxItem>0.3</ComboBoxItem>
+                                                            <ComboBoxItem>0.4</ComboBoxItem>
+                                                            <ComboBoxItem>0.5</ComboBoxItem>
+                                                            <ComboBoxItem>0.6</ComboBoxItem>
+                                                            <ComboBoxItem>0.7</ComboBoxItem>
+                                                            <ComboBoxItem>0.8</ComboBoxItem>
+                                                            <ComboBoxItem>0.9</ComboBoxItem>
+                                                            <ComboBoxItem>1</ComboBoxItem>
+                                                        </ComboBox>
+                                                        <TextBlock Text="ResultType" />
+                                                        <ComboBox Margin="0,5,5,5"
+                                                                  Padding="5"
+                                                                  Text="{Binding MatchService.RunParameter.ResultType}"
+                                                                  Style="{StaticResource MaterialDesignOutlinedComboBox}"
+                                                                  Foreground="White">
+                                                            <ComboBoxItem>deformed_contours</ComboBoxItem>
+                                                            <ComboBoxItem>image_rectified</ComboBoxItem>
+                                                            <ComboBoxItem>vector_field</ComboBoxItem>
+                                                        </ComboBox>
+
+                                                        <TextBlock Text="GenParamName" />
+                                                        <ComboBox Margin="0,5,5,5"
+                                                                  Padding="5"
+                                                                  Text="{Binding MatchService.RunParameter.GenParamName}"
+                                                                  Style="{StaticResource MaterialDesignOutlinedComboBox}"
+                                                                  Foreground="White">
+                                                            <ComboBoxItem>[]</ComboBoxItem>
+                                                            <ComboBoxItem>angle_step</ComboBoxItem>
+                                                            <ComboBoxItem>deformation_smoothness</ComboBoxItem>
+                                                            <ComboBoxItem>expand_border</ComboBoxItem>
+                                                            <ComboBoxItem>expand_border_bottom</ComboBoxItem>
+                                                            <ComboBoxItem>expand_border_left</ComboBoxItem>
+                                                            <ComboBoxItem>expand_border_right</ComboBoxItem>
+                                                            <ComboBoxItem>expand_border_top</ComboBoxItem>
+                                                            <ComboBoxItem>scale_c_step</ComboBoxItem>
+                                                            <ComboBoxItem>scale_r_step</ComboBoxItem>
+                                                            <ComboBoxItem>subpixel</ComboBoxItem>
+                                                        </ComboBox>
+                                                        <TextBlock Text="GenParamValue" />
+                                                        <ComboBox Margin="0,5,5,5"
+                                                                  Padding="5"
+                                                                  Text="{Binding MatchService.RunParameter.GenParamValue}"
+                                                                  Style="{StaticResource MaterialDesignOutlinedComboBox}"
+                                                                  Foreground="White">
+                                                            <ComboBoxItem>[]</ComboBoxItem>
+                                                            <ComboBoxItem>none</ComboBoxItem>
+                                                            <ComboBoxItem>least_squares</ComboBoxItem>
+                                                            <ComboBoxItem>least_squares_high</ComboBoxItem>
+                                                            <ComboBoxItem>least_squares_very_high</ComboBoxItem>
+                                                        </ComboBox>
+
+                                                    </StackPanel>
+                                                </Expander.Content>
+                                            </Expander>
+                                        </StackPanel>
+                                    </ScrollViewer>
+
+                                    <StackPanel Grid.Row="1"
+                                                Margin="0,5,5,5">
+                                        <Button Content="执行"
+                                                Command="{Binding RunCommand}" />
+                                    </StackPanel>
+                                </Grid>
+                            </TabItem>
+                            <TabItem Header="结果显示">
+                                <StackPanel Margin="10">
+                                    <DockPanel LastChildFill="False">
+                                        <TextBlock FontSize="16"
+                                                   Text="显示文本" />
+                                        <ToggleButton DockPanel.Dock="Right"
+                                                      IsChecked="{Binding MatchService.Setting.IsShowDisplayText}" />
+                                    </DockPanel>
+
+                                    <DockPanel LastChildFill="False"
+                                               Margin="0,10">
+                                        <TextBlock FontSize="16"
+                                                   Text="显示中点" />
+                                        <ToggleButton DockPanel.Dock="Right"
+                                                      IsChecked="{Binding MatchService.Setting.IsShowCenter}" />
+                                    </DockPanel>
+
+                                    <DockPanel LastChildFill="False">
+                                        <TextBlock FontSize="16"
+                                                   Text="显示检测范围" />
+                                        <ToggleButton DockPanel.Dock="Right"
+                                                      IsChecked="{Binding MatchService.Setting.IsShowMatchRange}" />
+                                    </DockPanel>
+
+                                </StackPanel>
+                            </TabItem>
+                        </TabControl>
+                    </Grid>
+                    <!--图像编辑器-->
+                    <Grid Grid.Column="1">
+                        <Grid.RowDefinitions>
+                            <RowDefinition />
+                            <RowDefinition Height="0.3*" />
+                            <RowDefinition Height="auto" />
+                        </Grid.RowDefinitions>
+                        <controls:ImageEditView Image="{Binding Image}"
+                                                DrawObjectList="{Binding DrawObjectList}"
+                                                MatchResult="{Binding MatchResult}"
+                                                MaskObject="{Binding MaskObject, Mode=TwoWay}" />
+                        <DataGrid Grid.Row="1"
+                                  AutoGenerateColumns="False"
+                                  CanUserAddRows="False"
+                                  ColumnWidth="*"
+                                  IsReadOnly="True"
+                                  ItemsSource="{Binding MatchResult.Results}">
+                            <DataGrid.Columns>
+                                <DataGridTextColumn Header="序号"
+                                                    Binding="{Binding Index}" />
+                                <DataGridTextColumn Header="中点坐标X"
+                                                    Binding="{Binding Row}" />
+                                <DataGridTextColumn Header="中点坐标Y"
+                                                    Binding="{Binding Column}" />
+                                <DataGridTextColumn Header="分数"
+                                                    Binding="{Binding Score}" />
+                            </DataGrid.Columns>
+                        </DataGrid>
+                        <TextBlock Grid.Row="2"
+                                   Margin="5"
+                                   Text="{Binding MatchResult.Message}" />
+                    </Grid>
+                </Grid>
+            </TabItem>
+            <TabItem Header="参数说明">
+                <ScrollViewer VerticalScrollBarVisibility="Hidden">
+                    <ItemsControl Margin="15,5"
+                                  ItemsSource="{Binding MatchService.info.Parmeters}">
+                        <ItemsControl.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <StackPanel />
+                            </ItemsPanelTemplate>
+                        </ItemsControl.ItemsPanel>
+
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <StackPanel Margin="0,5,0,10">
+                                    <TextBlock Text="{Binding Name}"
+                                               Foreground="White"
+                                               FontWeight="Bold"
+                                               FontSize="14" />
+                                    <TextBlock Text="{Binding Description}"
+                                               Foreground="White"
+                                               Margin="20,5,0,0" />
+                                </StackPanel>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                </ScrollViewer>
+            </TabItem>
+            <TabItem Header="关联算子">
+                <ScrollViewer VerticalScrollBarVisibility="Auto">
+                    <ItemsControl Margin="15,5"
+                                  ItemsSource="{Binding MatchService.info.Predecessors}">
+                        <ItemsControl.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <StackPanel />
+                            </ItemsPanelTemplate>
+                        </ItemsControl.ItemsPanel>
+
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <StackPanel Margin="0,5,0,10">
+                                    <TextBlock Text="{Binding}"
+                                               Foreground="White" />
+                                </StackPanel>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                </ScrollViewer>
+            </TabItem>
+            <TabItem Header="代码示例" />
+
+        </TabControl>
+    </Grid>
+</UserControl>

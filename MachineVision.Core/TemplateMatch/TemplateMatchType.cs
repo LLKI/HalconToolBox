@@ -13,5 +13,6 @@ namespace MachineVision.Core.TemplateMatch
     {
         ShapeModel,//形状匹配
         NccModel,//灰度匹配
+        DeformableShapeModel,//形变匹配
     }
 }

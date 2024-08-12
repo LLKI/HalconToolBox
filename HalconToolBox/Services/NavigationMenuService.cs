@@ -30,7 +30,7 @@ namespace HalconToolBox.Services
                 {
                     new NavigationItem("ShapeOutline","形状匹配","ShapeView"),
                     new NavigationItem("Clouds","相似性匹配","NccView"),
-                    new NavigationItem("ShapeOvalPlus","形变匹配",""),
+                    new NavigationItem("ShapeOvalPlus","形变匹配","DeformableShapeView"),
                 }),
                 new NavigationItem("","比较测量","",new ObservableCollection<NavigationItem>()
                 {

@@ -15,6 +15,7 @@ using MachineVision.Core.TemplateMatch;
 using MachineVision.Core.TemplateMatch.OCR;
 using MachineVision.ObjectMeasure;
 using MachineVision.Core.ObjectMeasure;
+using MachineVision.Core.TemplateMatch.DeformableModel;
 
 namespace HalconToolBox
 {
@@ -62,6 +63,7 @@ namespace HalconToolBox
             services.Register<QRCodeService>();
             services.Register<CircleMeasureService>();
             services.Register<CharRecognitionService>();
+            services.Register<DeformableModelService>();
         }
         protected override void ConfigureModuleCatalog(IModuleCatalog moduleCatalog)
         {

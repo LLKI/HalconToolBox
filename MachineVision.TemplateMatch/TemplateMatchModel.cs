@@ -20,6 +20,7 @@ namespace MachineVision.TemplateMatch
             containerRegistry.RegisterForNavigation<QRCodeView,QRCodeViewModel>();
             containerRegistry.RegisterForNavigation<BarCodeView, BarCodeViewModel>();
             containerRegistry.RegisterForNavigation<CharRecognitionView, CharRecognitionViewModel>();
+            containerRegistry.RegisterForNavigation<DeformableShapeView, DeformableShapeViewModel>();
         }
     }
 }
