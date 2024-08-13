@@ -57,7 +57,6 @@ namespace MachineVision.Core.TemplateMatch.OCR
                 if (RoiObject != null)
                 {
                     HOperatorSet.ReduceDomain(image, (HObject)RoiObject, out imageReduced);
-                    RoiObject = null;//用完就清空
                 }
                 else
                 {
@@ -80,7 +79,7 @@ namespace MachineVision.Core.TemplateMatch.OCR
                 HWindow.DispObj(ho_Characters);
             }
 
-            if (!string.IsNullOrWhiteSpace(hv_ResultValue))
+            if (hv_ResultValue.Length!=0)
             {
                 return new OcrMatchResult()
                 {

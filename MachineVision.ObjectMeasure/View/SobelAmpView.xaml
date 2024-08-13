@@ -1,9 +1,9 @@
-﻿<UserControl x:Class="MachineVision.TemplateMatch.Views.CharRecognitionView"
+﻿<UserControl x:Class="MachineVision.ObjectMeasure.View.SobelAmpView"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-             xmlns:local="clr-namespace:MachineVision.TemplateMatch.Views"
+             xmlns:local="clr-namespace:MachineVision.ObjectMeasure.View"
              xmlns:controls="clr-namespace:MachineVision.Shared.Controls;assembly=MachineVision.Shared"
              Background="{DynamicResource MaterialDesign.Brush.Background}"
              mc:Ignorable="d"
@@ -20,9 +20,9 @@
                     Grid.Row="0">
             <TextBlock FontSize="22"
                        FontWeight="Bold"
-                       Text="{Binding CharRecognitionService.info.Name}"
+                       Text="{Binding Service.info.Name}"
                        Foreground="White" />
-            <TextBlock Text="{Binding CharRecognitionService.info.Description}"
+            <TextBlock Text="{Binding Service.info.Description}"
                        Foreground="White" />
         </StackPanel>
 
@@ -69,19 +69,18 @@
                         </Grid.RowDefinitions>
                         <controls:ImageEditView Image="{Binding Image}"
                                                 DrawObjectList="{Binding DrawObjectList}"
-                                                MatchResult="{Binding MatchResult}"
-                                                HWindow="{Binding CharRecognitionService.HWindow, Mode=TwoWay}"
+                                                HWindow="{Binding Service.HWindow,Mode=TwoWay}"
                                                 MaskObject="{Binding MaskObject, Mode=TwoWay}" />
                         <TextBlock Grid.Row="2"
                                    Margin="5"
-                                   Text="{Binding MatchResult.Message}" />
+                                   Text="{Binding Message}" />
                     </Grid>
                 </Grid>
             </TabItem>
             <TabItem Header="参数说明">
                 <ScrollViewer VerticalScrollBarVisibility="Hidden">
                     <ItemsControl Margin="15,5"
-                                  ItemsSource="{Binding charRecognitionService.info.Parmeters}">
+                                  ItemsSource="{Binding Service.info.Parmeters}">
                         <ItemsControl.ItemsPanel>
                             <ItemsPanelTemplate>
                                 <StackPanel />
@@ -107,7 +106,7 @@
             <TabItem Header="关联算子">
                 <ScrollViewer VerticalScrollBarVisibility="Auto">
                     <ItemsControl Margin="15,5"
-                                  ItemsSource="{Binding charRecognitionService.info.Predecessors}">
+                                  ItemsSource="{Binding Service.info.Predecessors}">
                         <ItemsControl.ItemsPanel>
                             <ItemsPanelTemplate>
                                 <StackPanel />

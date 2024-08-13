@@ -64,6 +64,8 @@ namespace HalconToolBox
             services.Register<CircleMeasureService>();
             services.Register<CharRecognitionService>();
             services.Register<DeformableModelService>();
+            services.Register<ColorDetectionService>();
+            services.Register<SobelAmpService>();
         }
         protected override void ConfigureModuleCatalog(IModuleCatalog moduleCatalog)
         {

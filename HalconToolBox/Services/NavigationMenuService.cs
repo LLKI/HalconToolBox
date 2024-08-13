@@ -35,8 +35,8 @@ namespace HalconToolBox.Services
                 new NavigationItem("","比较测量","",new ObservableCollection<NavigationItem>()
                 {
                     new NavigationItem("Circle","卡尺找圆","CircleMeasureView"),
-                    new NavigationItem("Palette","颜色检测",""),
-                    new NavigationItem("Ruler","几何测量",""),
+                    new NavigationItem("Palette","颜色检测","ColorDetectionView"),
+                    new NavigationItem("Ruler","几何测量","SobelAmpView"),
                 }),
                 new NavigationItem("","字符识别","",new ObservableCollection<NavigationItem>()
                 {
@@ -46,8 +46,8 @@ namespace HalconToolBox.Services
                 }),
                 new NavigationItem("","缺陷检测","",new ObservableCollection<NavigationItem>()
                 {
-                    new NavigationItem("Crop","差分模型",""),
-                    new NavigationItem("CropRotate","形变模型","")
+                    new NavigationItem("Crop","差分模型","VariationView"),
+                    new NavigationItem("CropRotate","异变模型","")
                 })
             }));
             //Items.Add(new NavigationItem("", "模板匹配", ""));

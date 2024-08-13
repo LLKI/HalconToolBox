@@ -117,7 +117,6 @@ namespace MachineVision.Core.TemplateMatch.ShapeModel
                 if (RoiObject != null)
                 {
                     HOperatorSet.ReduceDomain(image, (HObject)RoiObject, out imageReduced);
-                    RoiObject = null;//用完就清空
                 }
                 else
                 {

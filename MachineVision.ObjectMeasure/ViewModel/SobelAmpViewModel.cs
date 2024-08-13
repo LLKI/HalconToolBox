@@ -15,21 +15,21 @@ using System.Windows.Documents;
 
 namespace MachineVision.ObjectMeasure.ViewModel
 {
-    public class CircleMeasureViewModel:NavigationViewModel
+    public class SobelAmpViewModel: NavigationViewModel
     {
-        public CircleMeasureViewModel(CircleMeasureService circleMeasureService)
+        public SobelAmpViewModel(SobelAmpService service)
         {
-            CircleMeasureService = circleMeasureService;
+            Service = service;
             RunCommand = new DelegateCommand(Run);
             LoadImageCommand = new DelegateCommand(LoadImage);
-            GetParameterCommand = new DelegateCommand(GetParameter);
+            SetRangeCommand = new DelegateCommand(SetRange);
             DrawObjectList = new ObservableCollection<DrawingObjectInfo>();
         }
 
+        public SobelAmpService Service { get; }
         public DelegateCommand RunCommand { get; set; }
+        public DelegateCommand SetRangeCommand { get; set; }
         public DelegateCommand LoadImageCommand { get; set; }
-        public DelegateCommand GetParameterCommand { get; set; }
-        public CircleMeasureService CircleMeasureService { get; }
 
         private ObservableCollection<DrawingObjectInfo> drawObjectList;
 
@@ -52,8 +52,9 @@ namespace MachineVision.ObjectMeasure.ViewModel
         public string Message
         {
             get { return message; }
-            set { message = value;RaisePropertyChanged(); }
+            set { message = value; RaisePropertyChanged(); }
         }
+
 
         /// <summary>
         /// 加载图像
@@ -70,14 +71,21 @@ namespace MachineVision.ObjectMeasure.ViewModel
             }
         }
 
-        private void GetParameter()
+        /// <summary>
+        /// 设置ROI区域
+        /// </summary>
+        private void SetRange()
         {
-            var obj = DrawObjectList.FirstOrDefault(x => x.ShapeType == ShapeType.Circle);
-            if (obj != null)
+            var hobject = DrawObjectList.FirstOrDefault();
+            DrawObjectList.Clear();//清空,给后面创建模板时不拿错
+            if (hobject != null)
             {
-                CircleMeasureService.RunParameter.Row = obj.HTuples[0];
-                CircleMeasureService.RunParameter.Column = obj.HTuples[1];
-                CircleMeasureService.RunParameter.Radius = obj.HTuples[2];
+                Service.RoiObject = new HObject(hobject.HObject);
+                Message = $"{DateTime.Now}:设置ROI成功!";
+            }
+            else
+            {
+                Message = $"{DateTime.Now}:请绘制ROI识别范围后点击按钮设置!";
             }
         }
 
@@ -86,8 +94,7 @@ namespace MachineVision.ObjectMeasure.ViewModel
         /// </summary>
         private void Run()
         {
-            Message = CircleMeasureService.Run(Image);
+            Message = Service.Run(Image);
         }
     }
 }
- 

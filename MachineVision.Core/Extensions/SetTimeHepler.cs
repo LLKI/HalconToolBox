@@ -13,7 +13,10 @@ namespace MachineVision.Core.Extensions
         {
             Stopwatch stopwatch = new Stopwatch();
             stopwatch.Start();
-            action();
+            Task.Run(() =>
+            {
+                action();
+            });
             stopwatch.Stop();
             return stopwatch.ElapsedMilliseconds;
         }

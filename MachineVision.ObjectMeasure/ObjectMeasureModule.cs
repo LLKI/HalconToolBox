@@ -19,6 +19,8 @@ namespace MachineVision.ObjectMeasure
         public void RegisterTypes(IContainerRegistry containerRegistry)
         {
             containerRegistry.RegisterForNavigation<CircleMeasureView, CircleMeasureViewModel>();
+            containerRegistry.RegisterForNavigation<ColorDetectionView, ColorDetectionViewModel>();
+            containerRegistry.RegisterForNavigation<SobelAmpView, SobelAmpViewModel>();
         }
     }
 }

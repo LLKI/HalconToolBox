@@ -1,4 +1,5 @@
-﻿using MachineVision.TemplateMatch.ViewModels;
+﻿using MachineVision.Core.ObjectMeasure;
+using MachineVision.TemplateMatch.ViewModels;
 using MachineVision.TemplateMatch.Views;
 using Prism.Ioc;
 using Prism.Modularity;
