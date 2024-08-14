@@ -81,7 +81,7 @@
             <TabItem Header="参数说明">
                 <ScrollViewer VerticalScrollBarVisibility="Hidden">
                     <ItemsControl Margin="15,5"
-                                  ItemsSource="{Binding charRecognitionService.info.Parmeters}">
+                                  ItemsSource="{Binding CharRecognitionService.info.Parmeters}">
                         <ItemsControl.ItemsPanel>
                             <ItemsPanelTemplate>
                                 <StackPanel />
@@ -107,7 +107,7 @@
             <TabItem Header="关联算子">
                 <ScrollViewer VerticalScrollBarVisibility="Auto">
                     <ItemsControl Margin="15,5"
-                                  ItemsSource="{Binding charRecognitionService.info.Predecessors}">
+                                  ItemsSource="{Binding CharRecognitionService.info.Predecessors}">
                         <ItemsControl.ItemsPanel>
                             <ItemsPanelTemplate>
                                 <StackPanel />
@@ -125,7 +125,7 @@
                     </ItemsControl>
                 </ScrollViewer>
             </TabItem>
-            <TabItem Header="代码示例" />
+            <!--<TabItem Header="代码示例" />-->
 
         </TabControl>
     </Grid>

@@ -56,6 +56,7 @@ namespace HalconToolBox
         {
             services.RegisterForNavigation<MainView, MainViewModel>();
             services.RegisterForNavigation<DashBoardView, DashBoardViewModel>();
+            services.RegisterForNavigation<StudyFile, StudyFileViewModel>();
             services.RegisterSingleton<INavigationMenuService, NavigationMenuService>();
 
 

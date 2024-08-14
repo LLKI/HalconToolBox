@@ -50,7 +50,7 @@ namespace HalconToolBox.Services
                     //new NavigationItem("CropRotate","形变模型","")
                 })
             }));
-            Items.Add(new NavigationItem("", "学习文档", ""));
+            Items.Add(new NavigationItem("", "学习文档", "StudyFile"));
         }
     }
 }
