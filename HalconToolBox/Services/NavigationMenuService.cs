@@ -47,13 +47,9 @@ namespace HalconToolBox.Services
                 new NavigationItem("","缺陷检测","",new ObservableCollection<NavigationItem>()
                 {
                     new NavigationItem("Crop","差分模型","VariationView"),
-                    new NavigationItem("CropRotate","异变模型","")
+                    //new NavigationItem("CropRotate","形变模型","")
                 })
             }));
-            //Items.Add(new NavigationItem("", "模板匹配", ""));
-            //Items.Add(new NavigationItem("", "比较测量", ""));
-            //Items.Add(new NavigationItem("", "字符识别", ""));
-            //Items.Add(new NavigationItem("", "缺陷检测", ""));
             Items.Add(new NavigationItem("", "学习文档", ""));
         }
     }

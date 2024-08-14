@@ -16,6 +16,9 @@ using MachineVision.Core.TemplateMatch.OCR;
 using MachineVision.ObjectMeasure;
 using MachineVision.Core.ObjectMeasure;
 using MachineVision.Core.TemplateMatch.DeformableModel;
+using MachineVision.DefectDetection;
+using HalconDotNet;
+using MachineVision.Core.DefectDetection;
 
 namespace HalconToolBox
 {
@@ -66,11 +69,13 @@ namespace HalconToolBox
             services.Register<DeformableModelService>();
             services.Register<ColorDetectionService>();
             services.Register<SobelAmpService>();
+            services.Register<VariationService>();
         }
         protected override void ConfigureModuleCatalog(IModuleCatalog moduleCatalog)
         {
             moduleCatalog.AddModule<TemplateMatchModel>();
             moduleCatalog.AddModule<ObjectMeasureModule>();
+            moduleCatalog.AddModule<VariationModel>();
             base.ConfigureModuleCatalog(moduleCatalog);
         }
     }

@@ -15,6 +15,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\DefectDetection\MachineVision.DefectDetection.csproj" />
     <ProjectReference Include="..\MachineVision.Core\MachineVision.Core.csproj" />
     <ProjectReference Include="..\MachineVision.ObjectMeasure\MachineVision.ObjectMeasure.csproj" />
     <ProjectReference Include="..\MachineVision.Shared\MachineVision.Shared.csproj" />
