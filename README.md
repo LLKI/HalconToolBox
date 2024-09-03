@@ -1,5 +1,5 @@
 # HalconToolBox
-这是一个基于WPF和HALCON实现的工具箱，实现了MVTec HDevelop的部分功能，包括形状匹配、
+这是一个基于WPF和HALCON实现的工具箱，实现了MVTec HDevelop的部分功能，包括模板匹配、字符识别等功能
 
 平台工具：VS,WPF,MVTec HDevelop XL 24.05 Progress,Prism
 
